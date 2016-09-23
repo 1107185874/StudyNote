@@ -73,7 +73,74 @@
 	c=3.14j
 	a=2+4j
 	type(a)		<type 'complex'>
-##字符串
-##列表
-##元组
+##序列
+序列的两个主要特点是索引操作符和切片操作符
+1. 索引操作符可以从序列中抓取一个特定项目
+2. 切片操作符可以获取序列的一个切片
+
+    str1='abcde'
+    str1[1]		'b'
+	str1[1:4]	'bcd'
+	str1[::]	'abcde'
+	str1[::2]	'ace'
+序列的基本操作
+
+    1. len()				求序列长度
+    2. +					连接2个序列
+    3. *					重复序列元素
+    4. in					判断元素是否在序列中
+    5. max()				返回最大的值
+    6. min()				返回最小的值
+    7. cmp(tuple1, tuple2)	比较2个序列值是否相同
+    str1="abc"
+    len(str1)		3
+    str2="asd"
+    str1+str2		'abcasd'
+    str1*5			'abcabcabcabcabc'
+    'c' in str1		True
+    max(str1)		'c'
+    min(str1)		'a'
+    cmp(str1,str2)	False
+
+###字符串
+	str1='123'
+	type(str1)	<type 'str'>
+	str2="123"
+	type(str2)	<type 'str'>
+	字符串有'时，可以用"格式
+	字符串有"时,可以用\"转义
+	""" 或 '''可以友好显示 
+###元组
+通过圆括号中用逗号分割的项目定义，被定义的元组的值不会改变，即元素值不能改变。
+
+    t=("hello", 30, "hehe")
+    t[0]		'hello'
+	t1=()		空元组
+	t2=(1)		t2实际为int
+	t2=(1,)		包含一个元素的元组
+	t[0]=123	Error
+	name,age,str1=t
+	name		'hello'
+	age			30
+	str1		'hehe'
+	a,b,c=1,2,3	或者	a,b,c=(1,2,3)
+	a			1
+	b			2
+	c			3
+###列表
+用[]表示列表，以，分隔元素，元素可变
+
+    列表的操作
+    取值
+    	切片和索引
+    	list[]
+    添加
+    	list.appen()
+    删除
+    	del(list[])
+    	list.remove(list[])
+    修改
+    	list[]=x
+    查找
+    	var in list
 ##字典
