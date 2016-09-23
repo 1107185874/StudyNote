@@ -1,0 +1,204 @@
+一.文件安全与权限
+	文件类型：
+	-	普通文件
+	p	命名管道文件
+	c	字符设备文件
+	b	块设备文件
+	s	套接字文件
+	l	符号链接
+	d	目录
+
+	文件权限：
+	r	4	读
+	w	2	写
+	x	1	执行
+
+	chmod改变权限：
+	（符号模式)
+	chmod	[who]	operator	[permission]	filename
+	who:
+		u	文件属主权限
+		g	同组用户权限
+		o	其他用户权限
+		a	所有用户
+	operator：
+		+	增加权限
+		-	取消权限
+		=	设定权限
+	permission:
+		r	读权限
+		w	写权限
+		x	执行权限
+		s	文件属主和组set-ID
+		t	粘性位（只有属主可以删除）
+		l	给文件加锁，其他用户无法访问
+	(绝对模式)
+	chmod	[mode]	file
+	mode:	3位8进制数字
+
+	chown改变属主
+	chown -R -h owner file
+		-R	对所有子目录下的文件都进行同样的操作
+		-h	改变符号链接文件的属主时不影响该链接所指向的目标文件
+	获取自己所属于的用户组：group / id
+	获取其他用户所属于的用户组：group otheruser
+
+	chgrp改变属组
+	chgrp	owner	file
+
+	umask(掩码)
+	获取掩码：	umask
+	设置掩码：	umask	nnn		---nnn为三位8进制数
+	掩码计算：
+	目录权限：	777  -  umask
+	文件权限：	666  -  umask
+
+	符号链接ln
+	ln	[-s]	source_path	target_path
+
+
+二.find和xargs
+	find	pathname	-options	[-print -exec -ok]
+		options:
+			-name	按照文件名查找文件
+			-perm	按照文件权限查找文件
+			-prune	可以使find命令不在当前指定的目录中查找，如果同时使用-depth，-prune选项会被find命令忽略
+			-user	按照文件属主查找文件
+			-group	按照文件属组查找文件
+			-mitime  -n  +n	按照文件的更改时间查找文件
+					-n	更改时间距现在在n天以内
+					+n	更改时间距现在在n天以前
+			-atime	
+			-mtime
+			-nogroup查找无有效属组的文件，即该文件属组在/etc/groups中不存在
+			-nouser	查找无有效属主的文件，即该文件的属主在/etc/passwd中不存在
+			-newer  file1  !  file2	查找更改时间比文件file1新但比文件file2旧的文件
+			-type	查找某一类型的文件(b -块文件 ......  f  -普通文件)
+			-size	n[c/k/m/..]	查找文件长度为n的文件,带c表示字节，k ...
+						+n	超过n的文件
+						-n	小于n的文件
+			-depth	先从当前目录找，再从子目录中查找
+			-fstype	查找位于某一类型文件系统中的文件，这些文件系统类型通常可以在配置文件/etc/fstab中找到
+			-mount	在查找文件时不跨越文件系统mount点
+			-follow	如果find命令遇到符号链接文件，就跟踪至链接所指向的文件
+			-cpio	对匹配文件使用cpio命令，将这些文件备份到磁带设备中
+		-print	将匹配的文件输出到标准输出
+		-exec	对匹配的文件执行该参数给出的shell命令	格式：command {}空格\;
+		-ok	和-exec相同，但在每执行一个命令之前都会给出提示，让用户确定是否执行
+	xargs	(用-exec传递的命令长度有限)
+	|  xargs  command
+
+三.后台执行命令
+	crontab(系统管理员通过cron.deny和cron.allow禁止或允许用户拥有自己的crontab文件)
+		域：
+		分	时	日	月	周	命令
+		1-59	0-23	1-31	1-12	0-6
+	
+		-  表示时间范围
+		*  表示连续时间范围
+		,  表示某几个时间点
+		crontab命令形式:
+			crontab	[-u user]  -e  -l  -r
+				-u	用户名（使用自己的名字登录，不需要-u选项）
+				-e	编辑crontab文件
+				-l	列出crontab文件的内容
+				-r	删除crontab文件
+		创建新的crontab文件
+			vi	<user>cron	如ztcron
+			crontab ztcron
+		备份crontab文件
+			crontab  -l  >$HOME/mycron
+		恢复crontab文件
+			crontab	<filename>	如：crontab $HOME/mycron
+
+	at(可以通过/etc/at.allow和at.deny来控制用户使用at命令)
+	基本形式：at	[-f	script]	[-m  -l  -r]	[time]	[date]
+		-f  script	要提交的脚本或命令
+		-l	列出当前所有等待运行的作业	等同于atq
+		-r	清除作业，清除某个作业，需要提供相应的标示（ID）
+		-m	作业完成后给用户发邮件
+		-time	可以是H,HH:MM,H,MH.M,也可以使用a.m,p.m
+		-date	可以是月份或日期也可以today,tomorrow
+	清除一个作业：
+		atrm	[job  no]	或	at  -r  [job  no]
+
+	&命令
+	基本形式：命令	&
+		作业在后台运行一样会将结果输出到屏幕，可使用以下方法：
+		command	>out.file  2>&1  &
+	查看进程：ps
+
+	nohup
+	一般形式：nohup	command	&
+	在缺省情况下作业的所有输出都会被重定向到nohup.out文件中，可以另外指定输出文件：
+		nohup	command	>  myout.file  2>&1
+
+
+四.文件名置换
+	*	匹配任何字符串，包括空字符串
+	?	匹配任何单个字符
+	[...]	匹配[]中所包含的任何单个字符
+	[!...]	匹配[]中非感叹号!之后的字符
+
+
+五.shell输入与输出
+	echo
+	一般形式：echo	string
+	提示符出现在输出的字符串之后，可以用:
+		echo	"string\c"
+		read	string
+	linux系统，必须用-n选项禁止echo命令输出后换行
+		必须用-e才能使转移符生效
+
+	read
+	可以从键盘或文件的某一行文本中读入信息，并将其赋值给一个变量
+	只指定一个变量，read将会把所有的输入赋值给该变量，直至遇到第一个文件结束符或回车
+	一般形式：read	varible1  varible2  ...
+
+	cat
+	显示文本（会显示全部文件，可用cat  myfile | more 分页显示）
+	创建文件:
+		cat  >  myfile
+		输入文字
+		<Ctrl+D>
+	显示控制字符：cat  -v  filename
+
+	|  (管道)
+	把一个命令的输出传递给另一个命令作为输入
+	一般形式：command1  |  command2
+
+	tee
+	把输出的一个副本输送到标准输出，另一个副本拷贝到相应的文件中
+	一般形式：tee	-a	files
+		-a表示追加
+
+	重定向标准输出
+	command  >  filename  或  command  1>  filename(不存在filename会自动创建filename,存在会先覆盖原先内容)
+	command  >>  filename(追加方式)
+	>  filename  会创建fielname
+
+	重定向标准输入
+	command  <  filename	command命令以filename文件作为标准输入
+	command  <<  delimiter	从标准输入中读入，直到遇到delimiter分界符
+	command  <  filename1  >  filename2	command命令以filename1文件作为标准输入，filename2文件作为标准输出
+
+	重定向标准错误
+	command  2>  filename	把标准错误重定向到filename中（覆盖方式）
+	command  2>>  filename	（追加方式）
+
+	command  >  filename  2>  &1	把标准输出和标准错误一起重定向到filename中（覆盖方式）
+	command  >>  filename  2>  &1	（追加方式）
+
+
+六.命令执行顺序
+	&&
+	一般形式：command1  &&  command2
+
+	||
+	一般形式：command1  &&  command2
+
+	()和{}将命令结合起来
+
+
+七.正则表达式
+	
