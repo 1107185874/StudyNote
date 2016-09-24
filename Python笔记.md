@@ -130,17 +130,64 @@
 ###列表
 用[]表示列表，以，分隔元素，元素可变
 
-    列表的操作
-    取值
-    	切片和索引
-    	list[]
-    添加
-    	list.appen()
-    删除
-    	del(list[])
-    	list.remove(list[])
-    修改
-    	list[]=x
-    查找
-    	var in list
+####列表的操作
+#####1.取值
+#####2.切片和索引
+- list[]
+#####3.添加
+- list.appen()
+#####4.删除
+- del(list[])
+- list.remove(list[])
+#####5.修改		
+- list[]=x
+#####6.查找		
+- var in list
+
+    	lista=['a',24,'hehe']
+    	lista[0]='b]
+		lista		['b',24,'hehe']
+    	lista.appen("123")
+    	lista		['b',24,'hehe','123']
+    	lista.remove(lista[3])
+    	lista		['b',24,'hehe']
+    	del(lista[2])
+    	lista		['b',24']
+
 ##字典
+字典是python中的映射类型（哈希表），字典对象是可变的，但是字典的键必须使用不可变对象，键值可以使用不同类型。
+###创建
+####1.{}
+	dic1={'name':'z','age':22}
+	dic1['name']		'z'
+	dic1['age']		22
+	name='t'
+	dic2={name:'z','age':22}
+	name			't'		//name是一个变量，键值可以是变量或字符串
+	age				Error
+	dic2			{'t':'z','age':22}
+####2.使用工厂方法dict()
+	fdict=dict(['x',1],['y,2])	使用字典生成字典，效率低
+####3.内建方法：fromkeys()
+- 字典中的元素具有相同的值，默认为None
+
+    	dict1={}.fromkeys(('x','y'),-1)
+
+###遍历
+	for k in dic1:
+		print(k)	
+	
+	//遍历键
+	for k in dic1:
+	    dic1[k]
+
+	//遍历键值
+###更新
+- 内建的update()方法	可以将整个字典的内容拷贝到另一个字典中
+- 增加键值对	dict1['zzz']='hello'
+- 修改键值	dict1['zzz']='world'
+- 删除键值对
+	- del dict1['a']		删除键值为'a'的元素
+	- dict1.pop('a')		删除并返回键为'a'的元素
+	- dict1.clear()		删除字典所有元素
+	- del	dict1			删除整个字典
