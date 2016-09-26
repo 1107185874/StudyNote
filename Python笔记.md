@@ -85,22 +85,23 @@
 	str1[::2]	'ace'
 序列的基本操作
 
-    1. len()				求序列长度
-    2. +					连接2个序列
-    3. *					重复序列元素
-    4. in					判断元素是否在序列中
-    5. max()				返回最大的值
-    6. min()				返回最小的值
-    7. cmp(tuple1, tuple2)	比较2个序列值是否相同
-    str1="abc"
-    len(str1)		3
-    str2="asd"
-    str1+str2		'abcasd'
-    str1*5			'abcabcabcabcabc'
-    'c' in str1		True
-    max(str1)		'c'
-    min(str1)		'a'
-    cmp(str1,str2)	False
+- len()				求序列长度
+- +					连接2个序列
+- *					重复序列元素
+- in					判断元素是否在序列中
+- max()				返回最大的值
+- min()				返回最小的值
+- cmp(tuple1, tuple2)	比较2个序列值是否相同
+
+	    str1="abc"
+	    len(str1)		3
+	    str2="asd"
+	    str1+str2		'abcasd'
+	    str1*5			'abcabcabcabcabc'
+	    'c' in str1		True
+	    max(str1)		'c'
+	    min(str1)		'a'
+	    cmp(str1,str2)	False
 
 ###字符串
 	str1='123'
@@ -191,3 +192,70 @@
 	- dict1.pop('a')		删除并返回键为'a'的元素
 	- dict1.clear()		删除字典所有元素
 	- del	dict1			删除整个字典
+#流程控制
+##逻辑运算符
+###and
+	True  and  True		True
+	Ture  and  False	False
+	False and  False	False
+###or
+	True  and  True		True
+	Ture  and  False	True
+	False and  False	False
+###not
+	not  True			False
+	not  False			True
+##if else
+逻辑值包含两个值：
+
+- True:表示非空的量，所有非零数
+- False：表示0，None，空的量等
+
+		if expression:
+		    statement(s)
+		else:
+		    statement(s)
+		//四个空格缩进
+
+		if expression:
+		    statement(s)
+		elif:
+		    statement(s)
+		else:
+		    statement(s)
+##for循环
+	for  iterating_var  in  sequence:
+		    	statements(s)
+	如果一个序列包含一个表达式列表，它是第一个执行。
+
+	for  x  in  range(100)
+		print(x)
+	else:
+		print("ending")
+	/*for循环正常结束时(执行到末尾），会执行else
+	  遇到break，Ctrl+C等非正常结束时，不运行else
+	*/
+
+- range(i,j[,步进值])
+	- i为初始数值,不选默认为0
+	- j位终止数值，但不包含在范围内
+	- 步进值不选，默认为1
+- break  跳出循环
+- continue  跳出本次循环
+- pass  不执行任何语句，起站位作用
+- exit()  跳出程序
+##遍历
+###for遍历序列
+###序列本身的偏移指数(索引)
+	s="hello"
+	for  x  in  range(len(s))
+		print(s[x])
+###遍历字典
+	for  x  in  d:
+		print(d[x])//遍历键
+	for  k,v  in  d.items():
+		print(k)//遍历键
+		print(v)//遍历键值
+##while
+	while  expression:
+		statement(s)
