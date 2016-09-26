@@ -192,7 +192,8 @@
 	- dict1.pop('a')		删除并返回键为'a'的元素
 	- dict1.clear()		删除字典所有元素
 	- del	dict1			删除整个字典
-#流程控制
+
+#5.流程控制
 ##逻辑运算符
 ###and
 	True  and  True		True
@@ -244,6 +245,7 @@
 - continue  跳出本次循环
 - pass  不执行任何语句，起站位作用
 - exit()  跳出程序
+
 ##遍历
 ###for遍历序列
 ###序列本身的偏移指数(索引)
@@ -256,6 +258,7 @@
 	for  k,v  in  d.items():
 		print(k)//遍历键
 		print(v)//遍历键值
+		
 ##while
 	while  expression:
 		statement(s)
