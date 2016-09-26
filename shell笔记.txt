@@ -201,4 +201,153 @@
 
 
 七.正则表达式
-	
+	^	只匹配行首
+	$	只匹配行尾
+	.	匹配单个任意字符
+	*	一个单字符后跟*，匹配0或任意多个此字符
+	\	屏蔽一个特殊字符的含义	特殊字符  $  .  '  "  *  [  ]  ^  |  ()  \  +  ?
+	[]	匹配[]中的字符	[0-9]	[a-z]	[A-Z]	-表示范围
+	pattern\{n\}	匹配模式出现n次
+	pattern\{n,\}	匹配模式最少出现n次
+	pattern\{n,m\}	匹配模式出现n到m次
+
+八.grep
+	-c	只输出匹配行的计数
+	-i	不区分大小写(只适用于单字符)
+	-h	查询多文件时不显示文件名
+	-l	查询多文件时只输出包含匹配字符的文件名
+	-n	显示匹配行及行号
+	-s	不显示不存在或无匹配文本的错误消息
+	-v	显示不包含匹配文本的所有行
+	精准匹配：
+	例如：显示只包含48的各行
+	grep "48<tab>" file	或	grep '48\>' file
+	不匹配行首:
+	例如：行首不是48
+	grep '^[^48]' file
+	空行：‘^$'
+九.awk（抽取数据包）
+	命令行模式:	awk  [-F  分隔符]  'command'  input_files
+	awk脚本:	awk  -f  awk_script_file input_files
+	任何awk语句都由模式(BEGIN END)和动作{}组成：
+	awk执行时，其浏览域标记为$1,$2...$n,$0表示所有域
+	条件操作符
+		同其他一样，~	匹配正则表达式
+十.sed
+	在命令行键入命令
+		命令格式：	sed  [选项]  sed命令  inputfile
+	将sed命令插入脚本文件，调用sed		sed  [选项]  -f  sed脚本文件  输入文件
+	将sed命令插入脚本文件，使sed脚本可执行
+	sed选项：
+		n	不打印
+		p	打印编辑行
+		c	下一命令是编辑命令
+		f	通知脚本文件支持所有sed命令
+	查询文本：
+		x		x为一行号
+		x,y		行号范围从x到y
+		/pattern/	查询包含模式的行
+		/pattern/pattern/查询包含两个模式的行
+		pattern/,x	在给定行号上查询包含的模式的行
+		x,/pattern/	通过行号和模式查询匹配的行
+		x,y!		查询不包含指定行号x和y的行
+	编辑命令：
+		p		打印匹配行
+		=		显示文件行号
+		a\		在定位行号后附加新文本信息
+		i\		在定位行号后插入新文本信息
+		d		删除定位行
+		c\		用新文本替换定位文本
+		s		使用替换模式替换相应模式
+		r		从另一个文本中读文本
+		w		写文本到一个文本
+		q		第一个模式匹配完成后退出或立即退出
+		l		显示与八进制ASCII代码等价的控制字符
+		n		从另一个文本中读文本下一行，并附加在下一行
+		g		将模式2粘贴到/pattern n/
+		y		传送字符
+		n		延续到下一输入行；允许跨行的模式匹配语句
+	从shell向sed传值(双引号)
+		$NAME="Hello,WORLD!"
+		$REPALCE="HELLO"
+		$echo  $NAME  |  sed  "s/Hello/$REPLACE/g"
+		HELLO,WORLD!
+	从sed输出中设置shell变量
+		$NEW_NAME=`echo $NAME  |  sed  "s/Hello/$REPLACE/g"`
+		$echo  $NEW_NAME
+		HELLO,WORLD!
+十一.合并与分割
+	sort(将不同的域按不同列顺序分类)
+	一般格式：
+		sort  -cmu  -o  output_file  [other options]  +  pos1  +  pos2  input_files
+		-c		测试文件是否已经分类
+		-m		合并两个分类文件
+		-u		删除所有复制行
+		-o		存储sort结果的输出文件名
+		其他选项：
+		-b		使用域进行分类时，忽略第一个空格
+		-t		域分隔符；用非空格或tab键分隔域
+		-r		对分类次序或比较求逆
+		n		n为域号，在分类比较时忽略此域
+		+n		n为域号，从此域号开始分类
+		-n		指定分类是域上的数字分类
+	unique（从一个文本中去除或禁止重复行，重复行是指连续不断出现的行）
+	一般格式：
+		unique  -u  d  c  -f  input_file output_file
+		-u		只显示不重复的行
+		-d		只显示有重复数据行，每种重复行只显示其中一行
+		-c		打印每一重复行出现次数
+		-f/n		忽略前n个域
+	join（将两个分类文本文件的行连接起来）
+	一般格式：
+		join  [options]  input_file1  input_file2
+		选项：
+		-an		连接时从文件n中显示不匹配行
+		-o  n.m		只显示文件n的第m域
+		-jn  m		使用文件n的第m域进行连接
+		-t  域分隔符	设置非空格或tab键的域分隔符
+	cut（从标准输入或文本文件中剪切列或域）
+	一般格式：
+		cut  [options]  file1  file2
+		选项：
+		-c  list	指定剪切字符数
+		-f  field	指定剪切域数
+		-d  		指定非空格或tab键不同的域分隔符
+	paste(将数据粘贴起来形成相关文件)
+	一般格式：
+		paste  -d  -s  file1  file2
+		选项：
+		-d		指定非空格或tab键不同的域分隔符
+		-s		将每个文件合并成行而不是按行粘贴
+		-		对每一个(-),从标准输入中读一次数据
+	split(将大文件分割成小文件）
+	一般格式：
+		split  -output_file_size  input_file  output_file
+		output_file_size是分割的行数
+		分割的文件以x[aa]——x[ZZ]顺序为文件名
+十二.tr
+	tr用来从标准输入中通过替换或删除操作进行字符替换
+	一般格式：
+		tr  -c  -d  -s  ["string1"]  ["string2"]  <  input_file
+		-c		用字符串1中字符集的补集替换此字符集，要求字符集为ASCII
+		-d		删除字符串1中所有的输入字符
+		-s		删除所有重复出现的字符序列，只保留第一个
+	字符集：
+	[a-z]		a-z内的字符组成的字符串
+	[A-Z]		A-Z内的字符组成的字符串
+	[0-9]		数字串
+	\octal		三位八进制对应的有效ASCII字符
+	[O*n]		字符O重复出现指定次数n
+	tr所有功能都可以用sed完成
+十三.登录环境
+	登录系统时，系统会查询/etc/passwd文件，检查用户名和密码
+	/etc/passwd文件中
+	[    ]:[	   ]:[	]:[  ]:[       ]:[         ]:[              ]
+	用户名    加密的密码            用户全名  用户根目录  用户使用的shell
+	登录成功后，系统会执行两个环境设置文件：/etc/profile和根目录下.profile
+	/etc/profile包括：
+		全局或局部变量
+		PATH信息
+		终端设置
+		安全命令
+		日期信息或放弃操作信息
