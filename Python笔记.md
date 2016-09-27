@@ -192,8 +192,8 @@
 	- dict1.pop('a')		删除并返回键为'a'的元素
 	- dict1.clear()		删除字典所有元素
 	- del	dict1			删除整个字典
+#流程控制
 
-#5.流程控制
 ##逻辑运算符
 ###and
 	True  and  True		True
@@ -206,6 +206,7 @@
 ###not
 	not  True			False
 	not  False			True
+
 ##if else
 逻辑值包含两个值：
 
@@ -224,6 +225,7 @@
 		    statement(s)
 		else:
 		    statement(s)
+
 ##for循环
 	for  iterating_var  in  sequence:
 		    	statements(s)
@@ -258,7 +260,38 @@
 	for  k,v  in  d.items():
 		print(k)//遍历键
 		print(v)//遍历键值
-		
+
 ##while
 	while  expression:
 		statement(s)
+
+#函数
+	def  函数名(参数列表):
+		函数体
+		//可以没有参数
+	调用函数一般形式:
+		函数名(参数表)
+
+##形参
+在定义函数时，函数后面的变量名称叫做"形式参数"(形参)
+
+##实参
+在调用函数时，函数后面的变量名称叫做"实际参数"(实参)
+
+>实参和形参应该对应
+
+##缺省参数
+	def 函数名(variale1,variable2=value)
+		函数体
+
+##变量的作用域
+
+###局部变量 
+只能在程序的特定部分使用的变量
+
+###全局变量
+整个程序都可以使用的变量
+>重名的变量，局部变量会屏蔽全局变量
+>可以将局部变量加global强制声明为全局变量，但在函数体外必须被调用
+
+##返回值
