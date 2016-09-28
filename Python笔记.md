@@ -192,7 +192,8 @@
 	- dict1.pop('a')		删除并返回键为'a'的元素
 	- dict1.clear()		删除字典所有元素
 	- del	dict1			删除整个字典
-#流程控制
+
+#5.流程控制
 
 ##逻辑运算符
 ###and
@@ -225,6 +226,35 @@
 		    statement(s)
 		else:
 		    statement(s)
+
+##(switch)
+> Python中并没有switch,可以用字典实现
+
+	def add(x,y):
+		return x+y
+
+	def  sub(x,y):
+		return x-y
+	
+	def  mul(x,y):
+		return x*y
+	
+	def  div(x,y):
+		return x/y
+
+	operator={"+":add,"-":sub,"*":mul,"/":div}
+	def f(x,o,y):
+		print(operator.get(o)(x,y))
+	f(3,"+",2)
+	5
+
+	result={
+			"+":x+y,
+			"-":x-y,
+			"*":x*y,
+			"/":x/y
+		}
+	print(result.get(operator))
 
 ##for循环
 	for  iterating_var  in  sequence:
@@ -265,7 +295,7 @@
 	while  expression:
 		statement(s)
 
-#函数
+#6.函数
 	def  函数名(参数列表):
 		函数体
 		//可以没有参数
@@ -295,3 +325,164 @@
 >可以将局部变量加global强制声明为全局变量，但在函数体外必须被调用
 
 ##返回值
+
+	def 函数名():
+		函数体
+		return 返回值
+
+返回值可以是任何类型,返回之后的代码不会执行,没有返回值，函数返回None
+
+##多类型传值
+	def f(name="name", age=0)
+		print("name=%s",name)
+		print("age=%d",age)
+	t=(30,'z')
+	f(*t)	name:30	age:'z'
+	d={'age':30, 'name':'z'} 
+	f(name='z',age=30)
+	name='z'	age=30
+	f(age=30,name='z')
+	name='z'	age=30
+	f(**d)
+	name='z'	age=30
+	d['age']=31
+	f(**d)
+	name='z'	age=31
+	d1={'a':30,'n':'z'}
+	f(**d1)		error
+	f(d1['n'],f['a'])
+	name='z'	age=31
+
+##处理多余参数
+	def  f(x, *args):
+		print x
+		print args
+	f(1)
+	1
+	()
+	f(1,2,3)
+	1
+	(2,3)
+	f(x=4)
+	4
+	()
+	f(x=4,y=5)	error
+
+	def  f(x,*args,**wargs)
+		print  x
+		print	args
+		print	wargs
+	f(1)
+	1
+	()
+	{}
+	f(1,2,3,4,5)
+	1
+	(2,3,4,5)
+	{}
+	f(x=1)
+	1
+	()
+	{}
+	f(x=1,y=2)
+	1
+	()
+	{'y':2}
+	f(1,2,3,4,5,x=10,y=20,z=30)	error
+	f(1,2,3,4,5,y=20,z=30)
+	1
+	(2,3,4,5)
+	{'y':20,'z':30}
+
+##lambda
+>lambda函数是一种快速定义单行的最小函数。
+
+	def  f(x,y)
+		return x*y
+	f(2,3)
+	6
+	g = lambda  x,y:x*y
+	g(2,3)
+	6
+
+- 可以让代码更加精简
+- 不需要考虑命名的问题
+- 让代码更容易理解
+
+lambda  参数：函数，返回一个对象
+
+###reduce
+逐次操作List里面的每项，接收参数2个，最后返回的为一个结果
+	l=range(1,6)
+	def  f(x,y)
+		return x*y
+	reduce(f,l)
+	120
+
+	f = lambda x,y:x*y
+	reduce(f,l)
+	120
+
+	reduce(lambda x,y:x*y , l)
+	120
+
+##内置函数
+- abs()	绝对值
+- min()	最小值
+- max()	最大值
+- len()	序列长度
+- divmod()	求商和模
+- pow()	
+- round()
+
+- callable()		测试函数是否可被调用
+- isinstance()	测试对象是什么类型
+
+- cmp()			比较两个字符串
+- range()		快速生成一个序列
+- xrange()		
+
+- type()			测试对象类型
+- tuple()		转换成元组
+- list()			转换成列表
+- str()			转换成字符串
+- int()			转换成int
+- float()		转换成flaot
+- complex()		转换成complex
+
+###string函数
+1. str.capitalize()	字符串首字母大写
+
+		s="hello,world"
+		s.capitalize()
+
+2. str.replace()	字符串替换
+
+		s.replace("hello","good")
+		'good world'
+		s
+		'hello world'//没有修改字符串
+		s.replace('o','x',2)
+		'hellx,wxrld'
+
+3. str.split()	切割
+
+		ip="192.168.1.1"
+		ip.split('.')
+		['192','168','1','1']
+		ip.split('.',2)
+		['192','168',1.1']
+
+导入模块的方式:
+
+		import string
+		string.replace(s, 'hello','good')
+
+###序列处理函数
+1. len()
+2. max()
+3. min()
+4. filter()
+5. zip()
+6. map()
+7. reduce()
