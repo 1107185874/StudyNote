@@ -486,3 +486,196 @@ lambda  参数：函数，返回一个对象
 5. zip()
 6. map()
 7. reduce()
+
+
+		def  f(x):
+			if x > 5:
+				return True
+	
+		l=range(10)
+		filter(f,l)
+		[6,7,8,9]
+	
+		name=['a','b','c']
+		age[2,3,4]
+		tel=['133','112','111']
+		zip(name,age,tel)
+		[('a',2,'133'),('b',3,'112'),('c',4,'111')]
+		map(None,name,age,tel)
+		[('a',2,'133'),('b',3,'112'),('c',4,'111')]
+		test=[1,2]
+		zip(name,age,tel,test)
+		[('a',2,'133',1),('b',3,'112',2)]
+		map(None,name,age,tel,test)
+		[('a',2,'133',1),('b',3,'112',2),('c',3,'111',None)]
+		a=[1,2,3]
+		b=[4,5,6]
+		def mf(x,y):
+			return x*y
+		map(mf,a,b)
+		[4,10,18]
+
+#7.模块
+
+> 当脚本被导入运行时，就称为模块。模块名与脚本的文件名相同。
+
+> 模块导入时，会产生.pyc编译文件，方便下次导入
+	new.py中：
+	import  cal.py
+	print( cal.add(1,2) )
+
+	#python new.py
+	3
+
+##7.1 \_\_name\_\_
+
+	在ncal.py中
+	加入print( __name__ )
+	python cal.py
+	main
+	python new.py
+	cal
+
+防止调用模块时，模块的内容反复执行
+
+	if  __name__ == "__main__"
+		模块调用的内容
+
+	在cal.py中加入
+	if  __name__ == "__main__"
+		add(1,2)
+	在new.py中加入
+	add(2,3)
+
+	#python cal.py
+	3
+	#python new.py
+	5
+
+##7.2模块导入顺序
+
+> 先找当前目录，再找系统目录
+
+#8.包
+> python的模块可以按目录组织为包
+
+
+**创建一个包的步骤：**
+
+1. 建立一个名字为包名字的文件夹
+2. 在该文件夹下创建一个__ init __.py文件（内容可以为空）
+3. 根据需要在该文件夹下存放脚本文件，已编译扩展文件及子包
+
+	在test文件夹下加入__ init __.py
+	import cal
+
+	import cal as c
+	c.add(1,2)
+	3
+
+	from cal import add
+	add(1,4)
+	5
+
+#9.正则表达式
+
+> 正则表达式模式会被编译成一系列的字节码，然后由用C编写的匹配引擎执行
+
+> 使用时，需要import re
+
+	import  re
+	s = r'abc'
+	re.findall(s,"aaaaaaaaaaaaa")
+	[]
+	re.findall(s,"abcaaaaaaaaaaa")
+	['abc']
+	re.findall(s,"abcaaabcaaaaaaa")
+	['abc','abc']
+
+##字符匹配
+
+###普通字符
+> 大多数字母和字符一般都会和自身匹配
+
+###元字符
+- .
+
+
+- *
+
+
+
+- +
+
+
+- ?
+
+
+
+- {}
+
+
+
+- []
+
+>指定一个字符集，可以匹配其中任意一个字符
+
+	st = "top tip twp tep"
+	res = r"t[io]p"
+	re.findall(res,st)
+	['top','tip']
+
+> 元字符在字符集中不起作用
+
+	r = "t[abc$]"
+	re.findall(r,'ta')
+	['ta']
+	re.findall(r,'tax')
+	['ta']
+	re.findall(r,'t$')
+	['t$']
+	
+	r = "t[abc^]"
+	re.findall(r,t^']
+	['t^']
+	r = "t[^abc]"	##[^...]------不匹配字符集
+	re.findall(r,"ta tb tc td")
+	['td']
+
+	r = r"x[0123456789]x"
+	re.findall(r,'x1x,x2x')
+	['x1x','x2x']
+
+	[0123456789]等价于[0-9]
+	[a-z]小写字母
+	[A-Z]大写字母
+	[a-zA-Z0-9]字母或数字
+
+- ^
+
+> 匹配行首
+
+	s = "hello world"
+	r = r"^hello"
+	re.findall(r,s)
+	['hello']
+	s = "world world"
+	re.findall(r,s)
+	[]
+
+- $
+
+> 匹配行尾
+
+	s = "world,hello boy"
+	r = r"boy$"
+	re.findall(r,s)
+	['boy']
+
+- \
+
+
+- |
+
+
+- ()
