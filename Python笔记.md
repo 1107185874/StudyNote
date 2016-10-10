@@ -598,23 +598,6 @@ lambda  参数：函数，返回一个对象
 > 大多数字母和字符一般都会和自身匹配
 
 ###元字符
-- .
-
-
-- *
-
-
-
-- +
-
-
-- ?
-
-
-
-- {}
-
-
 
 - []
 
@@ -674,8 +657,110 @@ lambda  参数：函数，返回一个对象
 
 - \
 
+	- \d		匹配任何十进制数：相当于类[0-9]
+	- \D		匹配任何非数字字符：相当于[^0-9]
+	- \s		匹配任何空白字符：相当于[\t\n\r\f\v]
+	- \S		匹配任何非空白字符：相当于[^\t\n\r\f\v]
+	- \w		匹配任何字母数字字符：相当于[a-zA-Z0-9]
+	- \W		匹配任何非字母数字字符：相当于[^a-zA-Z0-9]
+
+> 后面加不同的字符表示不同特殊意义，也可以用于取消所有的元字符
+
+- *
+
+> 指定前一个字符（字符集）可以被匹配零次或更多次
+
+- +
+
+> 指定前一个字符（字符集）可以被匹配一次或多次
+
+- ?
+
+> 匹配一次或零次
+
+	r=r"ab+?"
+	re.findall(r,"abbb")
+	['ab']		//加在重复次数后面表示非贪婪模式
+	r=r"ab+"
+	re.findall(r,"abbb")
+	['abbb']	//贪婪模式
+
+- {}
+
+> 匹配指定次数
+
+	{m,n}	至少重复m次，最多重复n次
+	{ ,n}	最多重复n次
+	{m, }	最少重复m次
+
+- .
 
 - |
 
-
 - ()
+
+##操作
+	
+###re.compile()接受可选的标志参数
+
+	r1 = r"\d{3,4}-?\d{8}
+	p_tel = re.compile(r1)
+	< _sre.SRE_Pattern object at 0x .... >
+	
+	p_tel.findall('010-12345678')
+	['010-12345678']
+
+	hello_re = re.compile(r'hello',re.I)	//re.I	不区分大小写
+	csvt_re.findall('hello')
+	['hello']
+	csvt_re.findall('HeLlo')
+	['HeLlo']
+
+###match()
+
+> 决定RE是否在字符串刚开始的位置匹配
+
+###search()
+
+> 扫描字符串，找到这个RE匹配的位置
+
+
+**没有匹配到，match()和search（）将会返回None，成功匹配，会返回一个'MatchObject‘实例**
+
+###findall()
+
+> 找到RE匹配的所有子串，并把它们作为一个列表返回
+
+###finditer()
+
+> 找到RE匹配的所有子串，并把它们作为一个迭代器返回
+
+###MatchObject实例方法
+
+group()		返回被RE匹配的字符串
+
+start()		返回匹配开始的位置
+
+end()		返回匹配结束的位置
+
+span()		返回一个元组包含匹配（开始，结束）的位置
+
+##顶级函数
+
+###sub()/subn()
+	
+	s = "heee hee hehe python"
+	rs = r'he+'
+	re.sub(rs,'hello',s)
+	'hello hello hello python'
+
+	re.subn(rs,'hello',s)
+	('hello hello hello python', 3)
+
+###split()
+
+	ip = "123+456-789*000"
+	re.split(r'[\+\-\*]',s)
+	['123','456','789','000']
+
+**dir(re)可以看到正则表达式的方法和内置属性，可通过help()查具体使用方法**
