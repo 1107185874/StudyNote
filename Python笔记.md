@@ -764,3 +764,92 @@ span()		返回一个元组包含匹配（开始，结束）的位置
 	['123','456','789','000']
 
 **dir(re)可以看到正则表达式的方法和内置属性，可通过help()查具体使用方法**
+
+##RE属性
+- S		使.匹配包括换行在内的所有字符
+- I		是匹配大小写敏感
+- L		做本地化识别匹配.法语等
+- M		多行匹配，影响^和$
+- X		能够使用REs的verbose状态，使之被组织得更清晰易懂
+
+		r1 = r"baidu.com"
+		re.findall(r1,'baidu.com')
+		['baidu.com']
+		re.findall(r1,'baiduacom')
+		['baiduacom']
+		re.findall(r1,'baidu\ncom')
+		[]
+		re.findall(r1,'baidu\ncom',re.S)
+		['baidu\ncom']
+	
+		s = """
+			hello world
+			world hello
+			hello hello
+			world world
+		"""
+		r = r"^world"
+		re.findall(r,s,re.M)
+		['world','world']
+
+		tel = r"""
+			\d{3,4}
+			-?
+			\d{8}
+			"""
+		re.findall(tel,'010-12345678')
+		[]
+		re.findall(tel,'010-12345678',re.X)
+		['010-12345678']
+
+##分组
+	
+> 当有分组存在时，findall会优先返回分组数据
+
+	email = r"\w{3}@\w+(\.com|\.cn)"
+	re.match(email,'zzz@qq.com')
+	< _sre.SRE_Match object at 0x... >
+	re.match(email,'zzz@qq.org')
+	//None
+	
+	re.findall(email,'zzz@qq.com')
+	['.com']
+
+	s = """
+		adas asdasd hello src=world yes sffsd
+		adadasd src=123 yes sf
+		hello src=python yes hehe
+		"""
+	r1 = r"hello src=.+ yes"
+	re.findall(r1,s)
+	['hello src=world yes','hello src=python yes']
+	r2 = r"hello src=(.+) yes"
+	re.findall(r2,s)
+	['world','python']
+
+#*爬虫*
+	
+	import re
+	import urllib.request
+	
+	def getHtml(url):
+	    page = urllib.request.urlopen(url)
+	    html = page.read()
+	    return html
+	
+	
+	def getImg(html):
+	    html = html.decode('utf-8')
+	    reg = 'src=".*?(http://.*?\.jpg)" size'
+	    imgre = re.compile(reg)
+	    imglist = re.findall(imgre,html)
+	    x=0
+	    print(imglist)
+	    for imgurl in imglist:
+	        urllib.request.urlretrieve(imgurl, '%s.jpg' % x)
+	        x+=1
+	
+	
+	Imghtml = getHtml("http://tieba.baidu.com/p/4758953819")
+	getImg(Imghtml)
+	**正则表达式没写好，只能匹配四张**
