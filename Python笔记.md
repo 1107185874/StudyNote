@@ -853,3 +853,241 @@ span()		返回一个元组包含匹配（开始，结束）的位置
 	Imghtml = getHtml("http://tieba.baidu.com/p/4758953819")
 	getImg(Imghtml)
 	**正则表达式没写好，只能匹配四张**
+
+#10.内存
+
+##浅拷贝
+
+> 对引用的拷贝
+
+	a = [1,2,3,'a','b','c']
+	b=a
+	b
+	[1,2,3,'a','b','c']
+	id(a)
+	1403...
+	id(b)
+	1403...
+	a.append('d')
+	a
+	[1,2,3,'a','b','c','d']
+	b
+	[1,2,3,'a','b','c','d']
+	b.append(4)
+	b
+	[1,2,3,'a','b','c','d',4]
+	a
+	[1,2,3,'a','b','c','d',4]
+
+##深拷贝
+
+> 对对象的资源拷贝
+
+	import copy
+	a = [1,2,3,['a','b','c']]
+	a
+	[1,2,3,['a','b','c']]
+	b=a
+	b
+	[1,2,3,['a','b','c']]
+	c = copy.copy(a)
+	c
+	[1,2,3,['a','b','c']]
+	id(a)
+	1403....36
+	id(b)
+	1403....36
+	id(c)
+	1403....28
+	a.append('d')
+	a
+	[1,2,3,['a','b','c'],'d']
+	b
+	[1,2,3,['a','b','c'],'d']
+	c
+	[1,2,3,['a','b','c']]
+	id(a[0])
+	15270712
+	id(c[0])
+	15270712
+	
+	id(a[3])
+	140379339758264
+	id(c[3])
+	140379339758264
+	a[3].append('d')
+	a
+	[1,2,3,['a','b','c','d'],'d']
+	b
+	[1,2,3,['a','b','c','d'],'d']
+	c
+	[1,2,3,['a','b','c','d']]
+
+	-----------------------------
+	d = copy.deepcopy(a)
+	a
+	[1,2,3,['a','b','c','d'],'d']
+	d
+	[1,2,3,['a','b','c','d'],'d']
+	id(a)
+	14...36
+	id(d)
+	14...80
+	id(a[0])
+	15..72
+	id(d[0])
+	15..72
+	id(a[3])
+	14...64
+	id(d[3])
+	14...08
+	a.append('e')
+	a
+	[1,2,3,['a','b','c','d'],'d','e']
+	d
+	[1,2,3,['a','b','c','d'],'d']
+	a[3].append('x')
+	a
+	[1,2,3,['a','b','c','d','x'],'d','e']
+	d
+	[1,2,3,['a','b','c','d'],'d']
+
+#11.文件与目录
+
+##文件读写
+
+> python进行文件读写的函数是open或file
+
+> file_handler = open(filename, mode)
+
+mode(默认只读)
+
+- r		只读
+- r+		读写
+- w		写入，先删除原文件，再重新写入，如果文件没有则创建
+- w+		读写，先删除原文件，再重新写入，如果文件没有则创建（可以写入输出）
+- a		写入，在文件末尾追加新的内容，文件不存在，则创建
+- a+		读写，在文件末尾追加新的内容，文件不存在，则创建
+- b		打开二进制文件，可以与r,w,a,+结合使用
+- U		支持所有的换行符号，"\r" "\n" "\r\n"
+
+###read()
+
+	f1 = open('test.txt')
+	f1.read()
+	f1.close()
+
+###write()
+
+	f2 = open('new.txt', "w")
+	f2.write('hello')
+	f2.close()
+
+##文件对象方法
+
+###read()
+
+> String = FileObject.read([size])
+
+- 读取文件的所有内容，并复制给一个字符串
+- size:读出文件的钱size个字节，并输出给字符串，此时文件的指针指向size处
+
+		test.txt
+		hello
+		python
+		hello
+	
+		f1 = open('test.txt')
+		s1 = f1.read()
+		f1.close()
+		s1
+		hello\npython\nhello
+	
+		for i in open('test.txt'):
+			print(i)
+	
+		hello
+	
+		python
+	
+		hello
+
+###readline()
+
+> String = FileObject.readline([size])
+
+- 每次读取文件的一行
+- size:是指每行每次读取size字节，直到行的末尾 
+
+		f1 = open('test.txt')
+		f1.readline()
+		hello
+		f1.readline()
+		python
+		f1.readline()
+		hello
+		f1.readline()
+		''
+		f1.close()
+
+###readlines()
+
+> List = FileObject.readlines([size])
+
+- 读取多行，返回一个列表
+- size:每次读入size个字节，然后继续按size读，不是每次读入行的size个字节
+
+		f1 = open('test.txt')
+		f1.readlines()
+		['hello','python','hello']
+
+###next()
+
+> FileObject.next()
+
+- 返回当前行，并将文件的指针指到下一行
+
+		f1.next()
+		'hello'
+		f1.next()
+		//文件指针到达文件尾，调用next会停止，报错
+
+###write()
+
+> FileObject.Write(string)
+
+- 写入前是否清除原文件数据，取决于打开模式
+
+###writelines()
+
+> FileObject.writelines(List)
+
+- 多行写
+- 效率比write高，速度更快
+
+		l = ['one\n','two\n','three\n']
+		f1 = open ('test.txt', 'w')
+		f1.writelines(l)
+		f1.close()
+	
+		test.txt
+		one
+		two
+		three
+
+###seek()
+
+> FileObject.seek(偏移量, 选项)
+
+选项
+
+- 0		文件头
+- 1		文件当前位置
+- 2		文件尾
+
+###flush()
+
+> FileObject.flush()
+
+- 提交更新
+
