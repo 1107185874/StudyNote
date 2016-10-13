@@ -1091,3 +1091,41 @@ mode(默认只读)
 
 - 提交更新
 
+##OS模块
+
+> 目录操作需要调用os模块
+
+	import os
+	os.mkdir("test")
+
+###mkdir
+
+> mkdir(path[,mode=0777])
+
+###makedirs
+
+> makedirs(name,mode=511)
+
+###rmdir
+
+> rmdir(path)
+
+###removedirs
+
+> removedirs(path)
+
+###listdir
+
+> listdir(path)
+
+###getcwd
+
+> getcwd()
+
+###chdir
+
+> chdir(path)
+
+###walk
+
+> walk(top, topdown=True, onerror=None)
