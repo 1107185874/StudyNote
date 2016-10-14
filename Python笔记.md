@@ -1129,3 +1129,21 @@ mode(默认只读)
 ###walk
 
 > walk(top, topdown=True, onerror=None)
+
+#12.异常
+
+##异常抛出
+
+	> try
+	> 	...//可能会抛出异常
+	> except 异常类型， 参数
+
+	try:
+		open('abc.txt')
+		print(hello)
+	except IOError, msgio:
+		print("打开失败!")
+	except NameError, msgn:
+		print("变量未定义!")
+		
+
