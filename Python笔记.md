@@ -1137,6 +1137,9 @@ mode(默认只读)
 	> try
 	> 	...//可能会抛出异常
 	> except 异常类型， 参数
+	>   ...//处理
+	> finally
+	>   ...//处理
 
 	try:
 		open('abc.txt')
@@ -1145,5 +1148,51 @@ mode(默认只读)
 		print("打开失败!")
 	except NameError, msgn:
 		print("变量未定义!")
-		
 
+###raise抛出异常
+
+> raise 异常类型(异常信息)
+		
+###常见异常
+
+- AssertionError		assert语句失败
+- AttributeError		试图访问一个对象没有的属性
+- IOError			输入输出异常，基本是无法打开文件
+- ImportError		无法引入模块或者包，基本是路径问题
+- IndentationError	语法错误，代码没有正确的对齐
+- IndexError			下标索引超出序列边界
+- KeyError			试图访问字典里不存在的键
+- KeyboardInterrupt	Ctrl+C被按下
+- NameError			使用一个还未赋予对象的变量
+- SyntaxError		Python代码逻辑语法错误，不能执行
+- TypeError			传入的对象类型与要求不符
+- UnboundLocalError	试图访问一个还未设置的全局变量
+- ValueError			传入一个不被期望的值
+
+#13面向对象
+
+##类和对象
+
+> 类是对事物的抽象
+
+> 对象是类的一个实例
+
+##python类定义
+
+> 类名的首字母要大写
+
+> 类的方法中至少有一个参数self
+
+	class  类名：
+			成员变量
+			成员函数
+
+> 创建对象的过程称之为实例化；当一个对象被创建后，包含三个特性：对象的句柄，属性和方法
+
+> 对象的属性对应类中的成员变量，对象的方法对应类中的成员函数
+
+	对象名 = 类名()
+
+##类的属性
+
+##类的方法
