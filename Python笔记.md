@@ -1,4 +1,4 @@
-#1.Python文件类型
+# 1.Python文件类型
 源代码（以“py'为扩展名）
 
 字节代码
@@ -11,11 +11,11 @@
 > python -O -m py_compile helllo.py
 
 **以上三种均可直接运行**
-#2.Python变量
-##变量命名
+# 2.Python变量
+## 变量命名
 变量名有字母,数字,下划线组成
 不能使用关键字
-##变量赋值（变量声明和定义的过程）
+## 变量赋值（变量声明和定义的过程）
 ```
     a=1
     id(a)    1440076240
@@ -25,9 +25,9 @@
     id(b)    1440076592
 ```
 和C语言不一样，每个数值占用一块内存，变量重新赋值，会新占用一块内存。不同的变量可以占用同一块内存。
-#3.运算符与表达式
-##1.Python运算符包括
-###赋值运算符（=  += -= *=  /= %=)
+# 3.运算符与表达式
+## 1.Python运算符包括
+### 赋值运算符（=  += -= *=  /= %=)
 ```
     a=100
     a-=50    50
@@ -36,7 +36,7 @@
     a/=4    50
     a%=3    2
 ```
-###算数运算符（+ - * / // % >> << | ^ & ~)
+### 算数运算符（+ - * / // % >> << | ^ & ~)
 ```
      3+3    6
      6-4    2
@@ -52,7 +52,7 @@
      4&5    4    （按位与）
      ~0        -1    （按位取反）
 ```
-###关系运算符(< > <= >= != ==)
+### 关系运算符(< > <= >= != ==)
 ```
     1<2        True
     3>4        False
@@ -61,7 +61,7 @@
     3!=4    True
     3==3    True
 ```
-###逻辑运算符(and or not)
+### 逻辑运算符(and or not)
 ```
     1>2 and 2<3        False
     5>2 and 2<3        True
@@ -69,27 +69,27 @@
     1>2 or 2>3        False
     not 1>2            True
 ```
-#4.数据类型
-##数字
-###整型(int)
+# 4.数据类型
+## 数字
+### 整型(int)
 ```
     num1=123
     type(123)    <type 'int'>
     type(num1)    <type 'int'>
 ```
-###浮点型(float)
+### 浮点型(float)
 ```
     f1=1.685466
     type(f1)            <type 'float'>
     type(1.685466)        <type 'float'>
 ```
-###复数(complex)
+### 复数(complex)
 ```
     c=3.14j
     a=2+4j
     type(a)        <type 'complex'>
 ```
-##序列
+## 序列
 序列的两个主要特点是索引操作符和切片操作符
 
 1. 索引操作符可以从序列中抓取一个特定项目
@@ -122,7 +122,7 @@
     min(str1)'a'
     cmp(str1,str2)False
 ```
-###字符串
+### 字符串
 ```
     str1='123'
     type(str1)    <type 'str'>
@@ -132,7 +132,7 @@
 - 字符串有'时，可以用"格式
 - 字符串有"时,可以用\"转义
 - """ 或 '''可以友好显示
-###元组
+### 元组
 通过圆括号中用逗号分割的项目定义，被定义的元组的值不会改变，即元素值不能改变。
 
 ```
@@ -152,21 +152,21 @@
     c            3
 ```
 
-###列表
+### 列表
 用[]表示列表，以，分隔元素，元素可变
 
-####列表的操作
-#####1.取值
-#####2.切片和索引
+#### 列表的操作
+##### 1.取值
+##### 2.切片和索引
 - list[]
-#####3.添加
+##### 3.添加
 - list.appen()
-#####4.删除
+##### 4.删除
 - del(list[])
 - list.remove(list[])
-#####5.修改       
+##### 5.修改       
 - list[]=x
-#####6.查找       
+##### 6.查找       
 - var in list
 ```
     lista=['a',24,'hehe']
@@ -179,10 +179,10 @@
     del(lista[2])
     lista['b',24']
 ```
-##字典
+## 字典
 字典是python中的映射类型（哈希表），字典对象是可变的，但是字典的键必须使用不可变对象，键值可以使用不同类型。
-###创建
-####1.{}
+### 创建
+#### 1.{}
 ```
     dic1={'name':'z','age':22}
     dic1['name']        'z'
@@ -193,16 +193,16 @@
     age                Error
     dic2            {'t':'z','age':22}
 ```
-####2.使用工厂方法dict()
+#### 2.使用工厂方法dict()
 ```
     fdict=dict(['x',1],['y,2])    使用字典生成字典，效率低
 ```
-####3.内建方法：fromkeys()
+#### 3.内建方法：fromkeys()
 - 字典中的元素具有相同的值，默认为None
 ```
 dict1={}.fromkeys(('x','y'),-1)
  ```
-###遍历
+### 遍历
 ```
     for k in dic1:
         print(k)   
@@ -211,7 +211,7 @@ dict1={}.fromkeys(('x','y'),-1)
     for k in dic1:
         dic1[k]
  ```
-###更新
+### 更新
 - 内建的update()方法    可以将整个字典的内容拷贝到另一个字典中
 - 增加键值对    dict1['zzz']='hello'
 - 修改键值    dict1['zzz']='world'
@@ -221,28 +221,28 @@ dict1={}.fromkeys(('x','y'),-1)
     - dict1.clear()        删除字典所有元素
     - del    dict1            删除整个字典
 
-#5.流程控制
+# 5.流程控制
 
-##逻辑运算符
-###and
+## 逻辑运算符
+### and
 |     A    |    B     |    Result    |
 |:--------:|:--------:|:------------:|
 |True      |True      |True          |
 |Ture      |False     |False         |
 |False     |False     |False         |
-###or
+### or
 |     A    |    B    |    Result    |
 |:--------:|:-------:|:------------:|
 |True      |True     |True          |
 |Ture      |False    |True          |
 |False     |False    |False         |
-###not
+### not
 |     A    |   Result    |
 |:--------:|------------:|
 |True      |False        |
 |False     |True         |
 
-##if else
+## if else
 逻辑值包含两个值：
 
 - True:表示非空的量，所有非零数
@@ -261,7 +261,7 @@ dict1={}.fromkeys(('x','y'),-1)
     else:
     statement(s)
 ```
-##(switch)
+## (switch)
 > Python中并没有switch,可以用字典实现
 ```
     def add(x,y):
@@ -655,12 +655,12 @@ lambda  参数：函数，返回一个对象
     ['abc','abc']
 ```
 
-##字符匹配
+## 字符匹配
 
-###普通字符
+### 普通字符
 > 大多数字母和字符一般都会和自身匹配
 
-###元字符
+### 元字符
 
 - []
 
@@ -763,9 +763,9 @@ lambda  参数：函数，返回一个对象
 
 - ()
 
-##操作
+## 操作
 
-###re.compile()接受可选的标志参数
+### re.compile()接受可选的标志参数
 ```
     r1 = r"\d{3,4}-?\d{8}
     p_tel = re.compile(r1)
@@ -780,34 +780,34 @@ lambda  参数：函数，返回一个对象
     csvt_re.findall('HeLlo')
     ['HeLlo']
 ```
-###match()
+### match()
 
 > 决定RE是否在字符串刚开始的位置匹配
 
-###search()
+### search()
 
 > 扫描字符串，找到这个RE匹配的位置
 
 
 **没有匹配到，match()和search（）将会返回None，成功匹配，会返回一个'MatchObject‘实例**
 
-###findall()
+### findall()
 
 > 找到RE匹配的所有子串，并把它们作为一个列表返回
 
-###finditer()
+### finditer()
 
 > 找到RE匹配的所有子串，并把它们作为一个迭代器返回
 
-###MatchObject实例方法
+### MatchObject实例方法
 - group()        返回被RE匹配的字符串
 - start()        返回匹配开始的位置
 - end()        返回匹配结束的位置
 - span()        返回一个元组包含匹配（开始，结束）的位置
 
-##顶级函数
+## 顶级函数
 
-###sub()/subn()
+### sub()/subn()
 ```
     s = "heee hee hehe python"
     rs = r'he+'
@@ -817,7 +817,7 @@ lambda  参数：函数，返回一个对象
     re.subn(rs,'hello',s)
     ('hello hello hello python', 3)
 ```
-###split()
+### split()
 ```
     ip = "123+456-789*000"
     re.split(r'[\+\-\*]',s)
@@ -825,7 +825,7 @@ lambda  参数：函数，返回一个对象
 ```
 **dir(re)可以看到正则表达式的方法和内置属性，可通过help()查具体使用方法**
 
-##RE属性
+## RE属性
 - S        使.匹配包括换行在内的所有字符
 - I        是匹配大小写敏感
 - L        做本地化识别匹配.法语等
@@ -863,7 +863,7 @@ lambda  参数：函数，返回一个对象
     re.findall(tel,'010-12345678',re.X)
     ['010-12345678']
 ```
-##分组 
+## 分组 
 > 当有分组存在时，findall会优先返回分组数据
 
 ```
@@ -888,7 +888,7 @@ lambda  参数：函数，返回一个对象
     re.findall(r2,s)
     ['world','python']
 ```
-#*爬虫*
+# *爬虫*
 ```
     import re
     import urllib.request
@@ -914,7 +914,7 @@ lambda  参数：函数，返回一个对象
     //正则表达式没写好，只能匹配四张
 ```
 
-#10.内存
+# 10.内存
 
 ## 浅拷贝
 
@@ -1013,9 +1013,9 @@ lambda  参数：函数，返回一个对象
     d
     [1,2,3,['a','b','c','d'],'d']
 ```
-#11.文件与目录
+# 11.文件与目录
 
-##文件读写
+## 文件读写
 
 > python进行文件读写的函数是open或file
 
@@ -1032,21 +1032,21 @@ mode(默认只读)
 - b        打开二进制文件，可以与r,w,a,+结合使用
 - U        支持所有的换行符号，"\r" "\n" "\r\n"
 
-###read()
+### read()
 ```
     f1 = open('test.txt')
     f1.read()
     f1.close()
 ```
-###write()
+### write()
 ```
     f2 = open('new.txt', "w")
     f2.write('hello')
     f2.close()
 ```
-##文件对象方法
+## 文件对象方法
 
-###read()
+### read()
 
 > String = FileObject.read([size])
 
@@ -1073,7 +1073,7 @@ mode(默认只读)
      
     hello
 ```
-###readline()
+### readline()
 
 > String = FileObject.readline([size])
 
@@ -1091,7 +1091,7 @@ mode(默认只读)
     ''
     f1.close()
 ```
-###readlines()
+### readlines()
 
 > List = FileObject.readlines([size])
 
@@ -1102,7 +1102,7 @@ mode(默认只读)
     f1.readlines()
     ['hello','python','hello']
 ```
-###next()
+### next()
 
 > FileObject.next()
 
@@ -1113,7 +1113,7 @@ mode(默认只读)
     f1.next()
     //文件指针到达文件尾，调用next会停止，报错
 ```
-###write()
+### write()
 
 > FileObject.Write(string)
 
@@ -1210,11 +1210,11 @@ mode(默认只读)
     except NameError, msgn:
         print("变量未定义!")
 ```
-###raise抛出异常
+### raise抛出异常
 
 > raise 异常类型(异常信息)
 
-###常见异常
+### 常见异常
 
 - AssertionError        assert语句失败
 - AttributeError        试图访问一个对象没有的属性
@@ -1230,15 +1230,15 @@ mode(默认只读)
 - UnboundLocalError    试图访问一个还未设置的全局变量
 - ValueError            传入一个不被期望的值
 
-#13面向对象
+# 13面向对象
 
-##类和对象
+## 类和对象
 
 > 类是对事物的抽象
 
 > 对象是类的一个实例
 
-##python类定义
+## python类定义
 
 > 类名的首字母要大写
 
